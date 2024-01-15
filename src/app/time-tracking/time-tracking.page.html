@@ -1,0 +1,54 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- menu icon -->
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+
+    </ion-buttons>
+
+    <!-- toolbar title-->
+    <ion-title>Time tracking</ion-title>
+
+    <!-- user icon -->
+    <!-- TODO: Getting user id and passing it to the user page -->
+    <ion-buttons slot="end" routerLink="/user">
+      <ion-icon name="person-circle-outline" size="large"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- div for enterinig the menu bar -->
+  <div class="ion-page" id="main-content">
+    <ion-header collapse="condense">
+      <ion-toolbar>
+        <ion-title size="large">time-tracking</ion-title>
+      </ion-toolbar>
+    </ion-header>
+  </div>
+</ion-content>
+
+<!-- menu sidebar content -->
+<ion-menu contentId="main-content">
+  <!-- <ion-header>
+    <ion-toolbar>
+      <ion-title>Menu Content</ion-title>
+    </ion-toolbar>
+  </ion-header> -->
+
+  <ion-list>
+    <ion-item>
+      <ion-label class="ion-padding" routerLink="/select-construction-area">Change construction area</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-padding" routerLink="/weekly-review">Weekly review</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-padding" routerLink="/absences">Absences</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="ion-padding" routerLink="/images">Images</ion-label>
+    </ion-item>
+  </ion-list>
+
+</ion-menu>

@@ -1,0 +1,28 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- back icon -->
+    <ion-buttons slot="start" routerLink="/time-tracking">
+      <ion-icon name="arrow-back-outline" size="large"></ion-icon>
+    </ion-buttons>
+
+    <!-- toolbar title-->
+    <ion-title>Absences</ion-title>
+
+    <!-- user icon -->
+    <ion-buttons slot="end" routerLink="/user">
+      <ion-icon name="person-circle-outline" size="large"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">absences</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="center">
+    <ion-button routerLink="/add-absences">Add new absence</ion-button>
+  </div>
+</ion-content>

@@ -1,0 +1,58 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <!-- user icon -->
+    <ion-buttons slot="end" routerLink="/login">
+      <ion-icon name="log-out" size="large"></ion-icon>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">select-construction-area</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+
+  <!-- title -->
+  <h3 class="margin-title">Select the construction area</h3>
+
+  <!-- Looping through the singular construction areas and displaying a card for each one -->
+  <!-- TODO: Getting every construction area and passing the id to the tracking page -->
+  <ion-card button="true" routerLink="/time-tracking">
+    <ion-card-header>
+      <ion-card-title>
+        construction area 1
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      construction description (eg location)
+    </ion-card-content>
+  </ion-card>
+
+
+  <ion-card button="true" routerLink="/time-tracking">
+    <ion-card-header>
+      <ion-card-title>
+        construction area 2
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      construction description (eg location)
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card button="true" routerLink="/time-tracking">
+    <ion-card-header>
+      <ion-card-title>
+        construction area 3
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      construction description (eg location)
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>
