@@ -1,0 +1,8 @@
+{
+  "name": "timetracker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "5e40e4cc"
+}
