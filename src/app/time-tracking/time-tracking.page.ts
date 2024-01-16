@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { PhotoService } from '../services/photo.service';
 
 @Component({
   selector: 'app-time-tracking',
   templateUrl: './time-tracking.page.html',
   styleUrls: ['./time-tracking.page.scss'],
 })
-export class TimeTrackingPage implements OnInit {
+export class TimeTrackingPage {
 
-  constructor() { }
+  constructor(public photoService: PhotoService) { }
 
-  ngOnInit() {
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
   }
-
 }
