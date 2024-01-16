@@ -34,10 +34,6 @@ const routes: Routes = [
     path: 'images',
     loadChildren: () => import('./images/images.module').then( m => m.ImagesPageModule)
   },
-  {
-    path: 'add-absences',
-    loadChildren: () => import('./add-absences/add-absences.module').then( m => m.AddAbsencesPageModule)
-  }
 ];
 @NgModule({
   imports: [

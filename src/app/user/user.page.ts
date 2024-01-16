@@ -1,15 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.page.html',
   styleUrls: ['./user.page.scss'],
 })
-export class UserPage implements OnInit {
+export class UserPage {
 
-  constructor() { }
+  constructor(private location: Location) {}
 
-  ngOnInit() {
+  back() {
+    this.location.back();
   }
 
 }
