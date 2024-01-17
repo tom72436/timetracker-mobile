@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +8,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectConstructionAreaPage implements OnInit {
 
-  constructor() { }
+  sites: any[] =[];
+
+  constructor(private http: HttpClient) {}
 
   ngOnInit() {
+    this.getAll();
   }
 
+  getAll(){
+    this.http.get<any[]>('http://localhost:3000/api/construction-sites').subscribe(
+      (response) => {
+        this.sites = response;
+      },
+      (error) => {
+        console.error("No constructionSite found");
+      }
+
+    );
+  }
 }

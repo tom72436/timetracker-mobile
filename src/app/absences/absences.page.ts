@@ -1,6 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
+import { CookieService } from 'ngx-cookie-service';
 
 interface absencesInterface {
   dates: Array<string>;
@@ -13,29 +15,59 @@ interface absencesInterface {
   styleUrls: ['./absences.page.scss'],
 })
 
-export class AbsencesPage {
+export class AbsencesPage implements OnInit{
   @ViewChild(IonModal) modal!: IonModal;
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   reason!: string;
   dates!: Array<string>;
-
+  absencesdb: any[] = [];
   absences: Array<absencesInterface> = [];
+  isToastOpen = false;
+  datevon!: Date;
+  datebis!: Date;
+  response: any = [];
+
+
 
   currentDate: string = new Date().toISOString();
+
+  constructor(private http: HttpClient,private cookieService:CookieService){}
+
+
+  ngOnInit(){
+    this.getAbsences();
+  }
 
   cancel() {
     this.modal.dismiss(null, 'cancel');
   }
 
   confirm() {
-    if (this.reason && this.dates) {
-      const data: absencesInterface = {dates: this.dates, reason: this.reason}
-      this.modal.dismiss(data, 'confirm');
+    if (this.reason && this.datevon && this.datebis) {
+      const encodedReason = encodeURIComponent(this.reason);
+      this.http.get('http://localhost:3000/api/absences/add?datevon=' + this.datevon + '&datebis=' + this.datebis + '&reason=' + encodedReason +'&uid=' +this.cookieService.get('uid')).subscribe(
+        (response) => {
+          // Assuming the server sends an array in response
+          this.response = response;
+          if (this.response && this.response.message === 'Absence added successfully') {
+            this.modal.dismiss('confirm');
+          } else {
+            console.log('Error adding Absence');
+          }
+        },
+        (error) => {
+          console.error('Error fetching data:', error);
+        }
+      );
+
     }
     else {
-      alert("You have to enter date and reason");
+      this.setOpen(true);
     }
+  }
+  setOpen(isOpen: boolean) {
+    this.isToastOpen = isOpen;
   }
 
   onWillDismiss(event: Event) {
@@ -60,5 +92,18 @@ export class AbsencesPage {
       // this.dates=[];
 
     }
+  }
+
+  getAbsences() {
+    this.http.get<any[]>('http://localhost:3000/api/user/absences?uid= '+   this.cookieService.get('uid')).subscribe(
+      (response) => {
+        this.absencesdb = response;
+        console.log(this.absencesdb);
+      },
+      (error) => {
+        console.error("No absences found");
+      }
+
+    );
   }
 }

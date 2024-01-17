@@ -17,19 +17,21 @@
     <ion-list class="margin">
       <ion-item>
         <ion-input [(ngModel)]="username" labelPlacement="stacked" label="Username">
-          <ion-button fill="clear" slot="end">
-          </ion-button>
         </ion-input>
       </ion-item>
       <ion-item>
         <ion-input [(ngModel)]="password" type="password" labelPlacement="stacked" label="Password">
-          <ion-button fill="clear" slot="end">
-          </ion-button>
         </ion-input>
       </ion-item>
     </ion-list>
 
-    <ion-button (click)="login()">Login</ion-button>
+    <ion-button (click)="getLogin()">Login</ion-button>
 
   </div>
+    <ion-toast
+      [isOpen]="isToastOpen"
+      message="Invalid username or password"
+      [duration]="3000"
+      (didDismiss)="setOpen(false)"
+    ></ion-toast>
 </ion-content>

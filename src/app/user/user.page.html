@@ -25,9 +25,9 @@
 
   <div class="center">
     <p>Logged in as</p>
-    <p><b>name</b></p>
+    <p><b>{{user?.[0]?.uname}}</b></p>
 
-    <ion-button routerLink="/login">Log out</ion-button>
+    <ion-button routerLink="/login" (click)="deleteCookies()">Log out</ion-button>
   </div>
 
 </ion-content>

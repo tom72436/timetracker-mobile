@@ -21,38 +21,17 @@
 
   <!-- Looping through the singular construction areas and displaying a card for each one -->
   <!-- TODO: Getting every construction area and passing the id to the tracking page -->
+  <div *ngFor="let site of sites">
   <ion-card button="true" routerLink="/time-tracking">
     <ion-card-header>
       <ion-card-title>
-        construction area 1
+        {{site.cname}}
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      construction description (eg location)
+      {{site.cdescription}}
     </ion-card-content>
   </ion-card>
-
-
-  <ion-card button="true" routerLink="/time-tracking">
-    <ion-card-header>
-      <ion-card-title>
-        construction area 2
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      construction description (eg location)
-    </ion-card-content>
-  </ion-card>
-
-  <ion-card button="true" routerLink="/time-tracking">
-    <ion-card-header>
-      <ion-card-title>
-        construction area 3
-      </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      construction description (eg location)
-    </ion-card-content>
-  </ion-card>
+</div>
 
 </ion-content>
