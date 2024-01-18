@@ -11,6 +11,9 @@ export class TimeTrackingPage implements OnDestroy {
   timeInSeconds: number = 0;
   todayWorked: Array<string> = [];
 
+  timeStart: any;
+  timeEnd: any;
+
   constructor(public photoService: PhotoService) { }
 
   ngOnDestroy() {
@@ -26,6 +29,8 @@ export class TimeTrackingPage implements OnDestroy {
     this.timer = setInterval(() => {
       this.timeInSeconds++;
     }, 1000);
+    this.timeStart = new Date().toLocaleTimeString();
+    console.log(this.timeStart);
   }
 
   // stops the tiimer and resets it
@@ -34,6 +39,9 @@ export class TimeTrackingPage implements OnDestroy {
       this.todayWorked.push(this.getTimeString());
       clearInterval(this.timer);
       this.resetTimer();
+
+      this.timeEnd = new Date().toLocaleTimeString();
+      console.log(this.timeEnd);
     }
   }
 

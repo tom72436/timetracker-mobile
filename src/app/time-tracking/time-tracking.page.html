@@ -33,7 +33,7 @@
     <ion-button (click)="stopTimer()">Stop</ion-button>
     <ion-list>
       <ion-item *ngFor="let today of todayWorked">
-        <ion-label>{{today}}</ion-label>
+        <ion-label>From {{this.timeStart}} to {{this.timeEnd}}{{today}}</ion-label>
       </ion-item>
     </ion-list>
   </div>
