@@ -17,7 +17,7 @@ export class SelectConstructionAreaPage implements OnInit {
   }
 
   getAll(){
-    this.http.get<any[]>('http://192.168.153.92:3000/api/construction-sites').subscribe(
+    this.http.get<any[]>('http://192.168.244.92:3000/api/construction-sites').subscribe(
       (response) => {
         this.sites = response;
       },
