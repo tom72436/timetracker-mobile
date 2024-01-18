@@ -15,7 +15,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding" [fullscreen]="true">
+<ion-content slot="start" [fullscreen]="true">
   <div *ngFor="let absence of absencesdb">
     <ion-card>
       <ion-card-header>
@@ -25,8 +25,13 @@
       </ion-card-header>
       <ion-card-content>
         {{absence.areason}}
+        <ion-button slot="end" > <ion-icon name="close-outline"></ion-icon></ion-button>
       </ion-card-content>
+
     </ion-card>
+
+
+
   </div>
   <ion-button id="open-modal" expand="block">Add absence</ion-button>
 

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { IonModal } from '@ionic/angular';
 import { OverlayEventDetail } from '@ionic/core/components';
 import { CookieService } from 'ngx-cookie-service';
@@ -32,7 +33,7 @@ export class AbsencesPage implements OnInit{
 
   currentDate: string = new Date().toISOString();
 
-  constructor(private http: HttpClient,private cookieService:CookieService){}
+  constructor(private http: HttpClient,private cookieService:CookieService, private router: Router){}
 
 
   ngOnInit(){
@@ -95,7 +96,7 @@ export class AbsencesPage implements OnInit{
   }
 
   getAbsences() {
-    this.http.get<any[]>('http://localhost:3000/api/user/absences?uid= '+   this.cookieService.get('uid')).subscribe(
+    this.http.get<any[]>('http://192.168.153.92:3000/api/user/absences?uid= '+   this.cookieService.get('uid')).subscribe(
       (response) => {
         this.absencesdb = response;
         console.log(this.absencesdb);
@@ -105,5 +106,22 @@ export class AbsencesPage implements OnInit{
       }
 
     );
+  }
+
+  delete(aid: number) {
+    const aidParam = encodeURIComponent(aid.toString());
+    if (confirm("Do you want to delete this user?")) {
+    this.http.get('http://192.168.153.92:3000/api/user/delete?uid=' + aidParam).subscribe(
+      (response: any) => {
+        console.log('User deleted successfully');
+        this.router.navigate(['/users']);
+      },
+      (error) => {
+        console.error('Error deleting user:', error);
+        // Handle errors or show appropriate messages to the user
+      }
+    );
+  }
+
   }
 }
