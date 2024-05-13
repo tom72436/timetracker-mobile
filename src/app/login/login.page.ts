@@ -13,6 +13,7 @@ export class LoginPage  {
   password!: string;
   response: any = [];
   isToastOpen = false;
+  ipAddress: string = "192.168.126.92"
 
   constructor(
     private router: Router,
@@ -34,7 +35,7 @@ export class LoginPage  {
     const encodedUsername = encodeURIComponent(this.username);
     const encodedPassword = encodeURIComponent(this.password);
 
-    this.http.get('http://192.168.67.92:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/user/login?uname=${encodedUsername}&upassword=${encodedPassword}`).subscribe(
 
       (response) => {
         // Assuming the server sends an array in response

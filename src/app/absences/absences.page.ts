@@ -28,7 +28,7 @@ export class AbsencesPage implements OnInit{
   datevon!: Date;
   datebis!: Date;
   response: any = [];
-
+  ipAddress: string = "192.168.126.92"
 
 
   currentDate: string = new Date().toISOString();
@@ -48,7 +48,7 @@ export class AbsencesPage implements OnInit{
     if (this.reason && this.datevon && this.datebis) {
       const encodedReason = encodeURIComponent(this.reason);
 
-      this.http.get('http://192.168.67.92:3000/api/absences/add?datevon=' + this.datevon + '&datebis=' + this.datebis + '&reason=' + encodedReason +'&uid=' +this.cookieService.get('uid')).subscribe(
+      this.http.get(`http://${this.ipAddress}:3000/api/absences/add?datevon=${this.datevon}&datebis=${this.datebis}&reason=${encodedReason}&uid=${this.cookieService.get('uid')}`).subscribe(
 
         (response) => {
           // Assuming the server sends an array in response
@@ -99,7 +99,7 @@ export class AbsencesPage implements OnInit{
 
   getAbsences() {
 
-    this.http.get<any[]>('http://192.168.67.92:3000/api/user/absences?uid= '+   this.cookieService.get('uid')).subscribe(
+    this.http.get<any[]>(`http://${this.ipAddress}:3000/api/user/absences?uid=${this.cookieService.get('uid')}`).subscribe(
 
       (response) => {
         this.absencesdb = response;
@@ -116,7 +116,7 @@ export class AbsencesPage implements OnInit{
   delete(aid: number) {
     const aidParam = encodeURIComponent(aid.toString());
     if (confirm("Do you want to delete this user?")) {
-    this.http.get('http://192.168.67.92:3000/api/absences/delete?uid=' + aidParam).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/absences/delete?uid=${aidParam}`).subscribe(
       (response: any) => {
         console.log('User deleted successfully');
         this.router.navigate(['/users']);

@@ -21,6 +21,8 @@ export class TimeTrackingPage implements OnInit {
 
   isToastOpen = false;
 
+  ipAddress: string = "192.168.126.92"
+
   constructor(public photoService: PhotoService, private http: HttpClient, private cookieService: CookieService) { }
 
   ngOnInit() {
@@ -123,7 +125,7 @@ export class TimeTrackingPage implements OnInit {
       return;
     }
 
-    this.http.get('http://192.168.67.92:3000/api/timetracking/save?cid=' + this.cookieService.get('cid') + '&uid=' + this.cookieService.get('uid')).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/timetracking/save?cid=${this.cookieService.get('cid')}'&uid=${this.cookieService.get('uid')}`).subscribe(
       (response: any) => {
         console.log('Time saved successfully');
         this.getTime();
@@ -140,7 +142,7 @@ export class TimeTrackingPage implements OnInit {
   }
 
   getTime() {
-    this.http.get('http://192.168.67.92:3000/api/timetracking/get?cid=' + this.cookieService.get('cid') + '&uid=' + this.cookieService.get('uid')).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/timetracking/get?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}`).subscribe(
       (response: any) => {
         this.time = response;
         console.log(this.time);
@@ -165,7 +167,7 @@ export class TimeTrackingPage implements OnInit {
 
     if (tidToUpdate !== null) {
       // Perform the HTTP request with the found tid
-      this.http.get('http://192.168.67.92:3000/api/timetracking/update?cid=' + this.cookieService.get('cid') + '&uid=' + this.cookieService.get('uid') + '&tid=' + tidToUpdate).subscribe(
+      this.http.get(`http://${this.ipAddress}:3000/api/timetracking/update?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}&tid=${tidToUpdate}`).subscribe(
         (response: any) => {
           console.log(response);
         },
@@ -181,7 +183,7 @@ export class TimeTrackingPage implements OnInit {
 
 
   saveImage(image: string) {
-    this.http.get('http://192.168.67.92:3000/api/images/save?cid'+ this.cookieService.get('cid') + '&uid=' + this.cookieService.get('uid') + '&image=' + image).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/images/save?cid${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}&image=${image}`).subscribe(
       (response: any) => {
         console.log('Image saved successfully:', response);
 

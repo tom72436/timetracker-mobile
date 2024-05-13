@@ -10,6 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserPage implements OnInit{
   user!: any;
+  ipAddress: string = "192.168.126.92"
 
   constructor(private location: Location,private http: HttpClient,private cookieService:CookieService) {}
 
@@ -21,7 +22,7 @@ export class UserPage implements OnInit{
     this.location.back();
   }
   getDetails(){
-    this.http.get<any[]>('http://192.168.244.92:3000/api/user/details?uid=' + this.cookieService.get('uid')).subscribe(
+    this.http.get<any[]>(`http://${this.ipAddress}:3000/api/user/details?uid=${this.cookieService.get('uid')}`).subscribe(
       (response) => {
         this.user = response;
         console.log(this.user);
