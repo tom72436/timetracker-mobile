@@ -47,7 +47,7 @@ export class AbsencesPage implements OnInit{
   confirm() {
     if (this.reason && this.datevon && this.datebis) {
       const encodedReason = encodeURIComponent(this.reason);
-      this.http.get('http://192.168.153.92:3000/api/absences/add?datevon=' + this.datevon + '&datebis=' + this.datebis + '&reason=' + encodedReason +'&uid=' +this.cookieService.get('uid')).subscribe(
+      this.http.get('http://192.168.67.92:3000/api/absences/add?datevon=' + this.datevon + '&datebis=' + this.datebis + '&reason=' + encodedReason +'&uid=' +this.cookieService.get('uid')).subscribe(
         (response) => {
           // Assuming the server sends an array in response
           this.response = response;
@@ -96,7 +96,7 @@ export class AbsencesPage implements OnInit{
   }
 
   getAbsences() {
-    this.http.get<any[]>('http://192.168.153.92:3000/api/user/absences?uid= '+   this.cookieService.get('uid')).subscribe(
+    this.http.get<any[]>('http://192.168.67.92:3000/api/user/absences?uid= '+   this.cookieService.get('uid')).subscribe(
       (response) => {
         this.absencesdb = response;
         console.log(this.absencesdb);
@@ -111,7 +111,7 @@ export class AbsencesPage implements OnInit{
   delete(aid: number) {
     const aidParam = encodeURIComponent(aid.toString());
     if (confirm("Do you want to delete this user?")) {
-    this.http.get('http://192.168.153.92:3000/api/user/delete?uid=' + aidParam).subscribe(
+    this.http.get('http://192.168.67.92:3000/api/absences/delete?uid=' + aidParam).subscribe(
       (response: any) => {
         console.log('User deleted successfully');
         this.router.navigate(['/users']);

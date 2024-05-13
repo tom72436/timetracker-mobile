@@ -22,7 +22,7 @@
   <!-- Looping through the singular construction areas and displaying a card for each one -->
   <!-- TODO: Getting every construction area and passing the id to the tracking page -->
   <div *ngFor="let site of sites">
-  <ion-card button="true" routerLink="/time-tracking">
+  <ion-card button="true" (click)="setCookie(site.cid)">
     <ion-card-header>
       <ion-card-title>
         {{site.cname}}

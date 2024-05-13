@@ -18,6 +18,7 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
+
   <div class="ion-page" id="main-content">
     <ion-header collapse="condense">
       <ion-toolbar>
@@ -27,15 +28,15 @@
   </div>
 
   <div class="center">
-    <p>{{ getTimeString() }}</p>
-    <ion-button (click)="startTimer()">Start</ion-button>
+    <!-- <p>{{ getTimeString() }}</p> -->
+    <ion-button (click)="setTime()">Start</ion-button>
     <br>
-    <ion-button (click)="stopTimer()">Stop</ion-button>
-    <ion-list>
-      <ion-item *ngFor="let today of todayWorked">
-        <ion-label>From {{this.timeStart}} to {{this.timeEnd}}{{today}}</ion-label>
-      </ion-item>
+    <ion-button (click)="updateTime()">Stop</ion-button>
+    <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-list *ngFor="let entry of time">
+      <ion-refresher-content><ion-label>{{ entry.displayString }}</ion-label></ion-refresher-content>
     </ion-list>
+  </ion-refresher>
   </div>
 
   <!-- grid to display the photos -->
@@ -43,6 +44,7 @@
     <ion-row>
       <ion-col size="6" *ngFor="let photo of photoService.photos; index as position">
         <ion-img [src]="photo.webviewPath"></ion-img>
+        <ion-button (click)="saveImage2(photoService.photos)">Save Image</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -52,6 +54,12 @@
       <ion-icon name="camera"></ion-icon>
     </ion-fab-button>
   </ion-fab>
+
+
+  <ion-toast [isOpen]="isToastOpen" message="Cannot start shift. One was already started" [duration]="3000"
+    (didDismiss)="setOpen(false)"></ion-toast>
+
+
 </ion-content>
 
 

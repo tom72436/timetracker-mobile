@@ -1,42 +1,40 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit{
-
+export class LoginPage  {
   username!: string;
   password!: string;
   response: any = [];
   isToastOpen = false;
 
-  constructor(private router: Router,private http: HttpClient,private cookieService:CookieService) { }
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private cookieService: CookieService
+  ) {}
 
-  ngOnInit() {
-    this.getLogin();
-  }
+
 
   login() {
-    if(this.username && this.password) {
-      console.log(this.username);
-      this.router.navigate(['/select-construction-area']);
-    }
-    else {
-      alert("Please enter a username and password");
+    if (this.username && this.password) {
+      this.getLogin();
+    } else {
+      alert('Please enter a username and password');
     }
   }
-
   getLogin() {
     if (this.username || this.password) {
     const encodedUsername = encodeURIComponent(this.username);
     const encodedPassword = encodeURIComponent(this.password);
 
-    this.http.get('http://192.168.153.92:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
+    this.http.get('http://192.168.67.92:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
       (response) => {
         // Assuming the server sends an array in response
         this.response = response;

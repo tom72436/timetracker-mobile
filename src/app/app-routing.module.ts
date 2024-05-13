@@ -8,7 +8,7 @@ const routes: Routes = [
   },
   {
     path: 'select-construction-area',
-    loadChildren: () => import('./select-construction-area/select-construction-area.module').then( m => m.SelectConstructionAreaPageModule)
+    loadChildren: () => import('./select-construction-area/select-construction-area.module').then(m => m.SelectConstructionAreaPageModule)
   },
   {
     path: 'time-tracking',
