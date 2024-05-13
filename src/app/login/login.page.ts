@@ -35,6 +35,7 @@ export class LoginPage  {
     const encodedPassword = encodeURIComponent(this.password);
 
     this.http.get('http://192.168.67.92:3000/api/user/login?uname=' + encodedUsername + '&upassword=' + encodedPassword).subscribe(
+
       (response) => {
         // Assuming the server sends an array in response
         this.response = response;

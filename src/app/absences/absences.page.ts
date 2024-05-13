@@ -47,7 +47,9 @@ export class AbsencesPage implements OnInit{
   confirm() {
     if (this.reason && this.datevon && this.datebis) {
       const encodedReason = encodeURIComponent(this.reason);
+
       this.http.get('http://192.168.67.92:3000/api/absences/add?datevon=' + this.datevon + '&datebis=' + this.datebis + '&reason=' + encodedReason +'&uid=' +this.cookieService.get('uid')).subscribe(
+
         (response) => {
           // Assuming the server sends an array in response
           this.response = response;
@@ -96,7 +98,9 @@ export class AbsencesPage implements OnInit{
   }
 
   getAbsences() {
+
     this.http.get<any[]>('http://192.168.67.92:3000/api/user/absences?uid= '+   this.cookieService.get('uid')).subscribe(
+
       (response) => {
         this.absencesdb = response;
         console.log(this.absencesdb);
@@ -107,6 +111,7 @@ export class AbsencesPage implements OnInit{
 
     );
   }
+
 
   delete(aid: number) {
     const aidParam = encodeURIComponent(aid.toString());
@@ -122,6 +127,11 @@ export class AbsencesPage implements OnInit{
       }
     );
   }
+
+  }
+  // TODO: implement remove function
+  removeAbsence() {
+
 
   }
 }

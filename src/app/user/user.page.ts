@@ -21,7 +21,7 @@ export class UserPage implements OnInit{
     this.location.back();
   }
   getDetails(){
-    this.http.get<any[]>('http://192.168.153.92:3000/api/user/details?uid=' + this.cookieService.get('uid')).subscribe(
+    this.http.get<any[]>('http://192.168.244.92:3000/api/user/details?uid=' + this.cookieService.get('uid')).subscribe(
       (response) => {
         this.user = response;
         console.log(this.user);

@@ -15,7 +15,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content slot="start" [fullscreen]="true">
+<ion-content class="ion-padding" [fullscreen]="true">
+  <!-- displays every absence of the user -->
   <div *ngFor="let absence of absencesdb">
     <ion-card>
       <ion-card-header>
@@ -28,6 +29,15 @@
         <ion-button slot="end" > <ion-icon name="close-outline"></ion-icon></ion-button>
       </ion-card-content>
 
+<<<<<<< HEAD
+=======
+      <ion-fab vertical="top" horizontal="end">
+        <ion-fab-button size="small" color="danger" (click)="removeAbsence()">
+          <ion-icon name="close-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+
+>>>>>>> refs/remotes/origin/main
     </ion-card>
 
 
@@ -35,45 +45,42 @@
   </div>
   <ion-button id="open-modal" expand="block">Add absence</ion-button>
 
+  <!-- modal, opens when user wants to enter a new absence -->
   <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
     <ng-template>
       <ion-header>
-
         <ion-toolbar>
+          <!-- cancel button, discard the changes -->
           <ion-buttons slot="start">
             <ion-button (click)="cancel()">Cancel</ion-button>
           </ion-buttons>
-
+          <!-- confirm button, save the changes -->
           <ion-buttons slot="end">
             <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
           </ion-buttons>
         </ion-toolbar>
-
       </ion-header>
 
       <ion-content class="ion-padding">
         <h3>Pick your date</h3>
-
-        <!-- Two way binding to save the dates in a variable -->
-        <!-- <ion-datetime presentation="date" min={{currentDate}} multiple="true" [(ngModel)]="dates"></ion-datetime> -->
+        <!-- selection of the start date -->
         <h4>Von:</h4>
-        <ion-datetime-button datetime="datetime1"></ion-datetime-button>
+        <ion-datetime-button datetime="datetimeStart"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="datetime1" min={{currentDate}} [(ngModel)]="datevon"></ion-datetime>
+            <ion-datetime id="datetimeStart" min={{currentDate}} [(ngModel)]="datevon"></ion-datetime>
           </ng-template>
         </ion-modal>
-
+        <!-- selection of the end date -->
         <h4>Bis:</h4>
-        <ion-datetime-button datetime="datetime2" ></ion-datetime-button>
+        <ion-datetime-button datetime="datetimeEnd" ></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
-            <ion-datetime id="datetime2" min={{currentDate}} [(ngModel)]="datebis"></ion-datetime>
+            <ion-datetime id="datetimeEnd" min={{currentDate}} [(ngModel)]="datebis"></ion-datetime>
           </ng-template>
         </ion-modal>
         <br>
-
-        <!-- Two way binding to save the reason in a variable -->
+        <!-- input field for the reason -->
         <ion-input label="Reason" label-placement="floating" fill="outline" color="primary" [(ngModel)]="reason">
         </ion-input>
       </ion-content>
