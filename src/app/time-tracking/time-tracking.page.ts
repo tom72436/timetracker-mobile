@@ -21,7 +21,7 @@ export class TimeTrackingPage implements OnInit {
 
   isToastOpen = false;
 
-  ipAddress: string = "192.168.126.92"
+  ipAddress: string = "localhost"
 
   constructor(public photoService: PhotoService, private http: HttpClient, private cookieService: CookieService) { }
 

@@ -16,8 +16,9 @@ interface absencesInterface {
   styleUrls: ['./absences.page.scss'],
 })
 
-export class AbsencesPage implements OnInit{
+export class AbsencesPage implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
+  @ViewChild('modal2') modal2!: IonModal;
 
   message = 'This modal example uses triggers to automatically open a modal when the button is clicked.';
   reason!: string;
@@ -28,15 +29,15 @@ export class AbsencesPage implements OnInit{
   datevon!: Date;
   datebis!: Date;
   response: any = [];
-  ipAddress: string = "192.168.126.92"
+  ipAddress: string = "localhost"
 
 
   currentDate: string = new Date().toISOString();
 
-  constructor(private http: HttpClient,private cookieService:CookieService, private router: Router){}
+  constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) { }
 
 
-  ngOnInit(){
+  ngOnInit() {
     this.getAbsences();
   }
 
@@ -44,9 +45,14 @@ export class AbsencesPage implements OnInit{
     this.modal.dismiss(null, 'cancel');
   }
 
+  close() {
+    this.modal2.dismiss(null, 'cancel');
+  }
+
   confirm() {
     if (this.reason && this.datevon && this.datebis) {
       const encodedReason = encodeURIComponent(this.reason);
+      console.log(this.datevon)
 
       this.http.get(`http://${this.ipAddress}:3000/api/absences/add?datevon=${this.datevon}&datebis=${this.datebis}&reason=${encodedReason}&uid=${this.cookieService.get('uid')}`).subscribe(
 
@@ -55,6 +61,7 @@ export class AbsencesPage implements OnInit{
           this.response = response;
           if (this.response && this.response.message === 'Absence added successfully') {
             this.modal.dismiss('confirm');
+            window.location.reload();
           } else {
             console.log('Error adding Absence');
           }
@@ -77,22 +84,13 @@ export class AbsencesPage implements OnInit{
     const ev = event as CustomEvent<OverlayEventDetail<string>>;
     if (ev.detail.role === 'confirm') {
       // TODO: update absence tab
-
       // const { dates, reason } = ev.detail.data;
       // this.message = `Hello, ${dates}! Other value: ${reason}`;
 
       this.message = `Reason: ${this.reason} Date: ${this.dates.toLocaleString()}`;
 
-      this.absences.push({dates: this.dates, reason: this.reason});
+      this.absences.push({ dates: this.dates, reason: this.reason });
       console.log(this.absences.length);
-      // this.message = `Hello, ${ev.detail.data}!`;
-      // console.log(this.message);
-      // this.message = `Hello, ${this.reason}!`;
-      // console.log(this.message);
-      // console.log(this.reason);
-      // console.log(this.dates);
-      // console.log(this.dates.length);
-      // this.dates=[];
 
     }
   }
@@ -115,23 +113,33 @@ export class AbsencesPage implements OnInit{
 
   delete(aid: number) {
     const aidParam = encodeURIComponent(aid.toString());
-    if (confirm("Do you want to delete this user?")) {
-    this.http.get(`http://${this.ipAddress}:3000/api/absences/delete?uid=${aidParam}`).subscribe(
-      (response: any) => {
-        console.log('User deleted successfully');
-        this.router.navigate(['/users']);
-      },
-      (error) => {
-        console.error('Error deleting user:', error);
-        // Handle errors or show appropriate messages to the user
-      }
-    );
-  }
+
+    if (confirm("Do you want to delete this absence?")) {
+      this.http.get(`http://${this.ipAddress}:3000/api/absences/delete?aid=${aidParam}`).subscribe(
+        (response: any) => {
+          console.log('Absence deleted successfully');
+          window.location.reload();
+        },
+        (error) => {
+          console.error('Error deleting absence:', error);
+        }
+      );
+    }
 
   }
   // TODO: implement remove function
-  removeAbsence() {
+  removeAbsence(id: number, dateString: string) {
+    const date = new Date(dateString)
 
+    const currentDate = new Date();
 
+    date.setHours(0, 0, 0, 0);
+    currentDate.setHours(0, 0, 0, 0);
+
+    if (date >= currentDate) {
+      this.delete(id);
+    } else {
+      console.log(dateString);
+    }
   }
 }

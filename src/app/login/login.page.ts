@@ -13,7 +13,7 @@ export class LoginPage  {
   password!: string;
   response: any = [];
   isToastOpen = false;
-  ipAddress: string = "192.168.126.92"
+  ipAddress: string = "localhost"
 
   constructor(
     private router: Router,

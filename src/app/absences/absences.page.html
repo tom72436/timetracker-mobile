@@ -18,32 +18,40 @@
 <ion-content class="ion-padding" [fullscreen]="true">
   <!-- displays every absence of the user -->
   <div *ngFor="let absence of absencesdb">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-          {{absence.avon | date:'dd. MMM yyyy'}} - {{absence.abis | date:'dd. MMM yyyy'}}
-        </ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        {{absence.areason}}
-        <ion-button slot="end" > <ion-icon name="close-outline"></ion-icon></ion-button>
-      </ion-card-content>
+    <div *ngIf="absence.abis >= currentDate">
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>
+            {{absence.avon | date:'dd. MMM yyyy'}} - {{absence.abis | date:'dd. MMM yyyy'}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          {{absence.areason}}
+        </ion-card-content>
 
-<<<<<<< HEAD
-=======
-      <ion-fab vertical="top" horizontal="end">
-        <ion-fab-button size="small" color="danger" (click)="removeAbsence()">
-          <ion-icon name="close-outline"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
 
->>>>>>> refs/remotes/origin/main
-    </ion-card>
 
+        <ion-fab vertical="top" horizontal="end">
+          <ion-fab-button size="small" color="danger" (click)="removeAbsence(absence.aid, absence.abis)">
+            <ion-icon name="close-outline"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+
+      </ion-card>
+    </div>
 
 
   </div>
-  <ion-button id="open-modal" expand="block">Add absence</ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button id="open-past" expand="block">Show past</ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button id="open-modal" expand="block">Add absence</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 
   <!-- modal, opens when user wants to enter a new absence -->
   <ion-modal trigger="open-modal" (willDismiss)="onWillDismiss($event)">
@@ -73,7 +81,7 @@
         </ion-modal>
         <!-- selection of the end date -->
         <h4>Bis:</h4>
-        <ion-datetime-button datetime="datetimeEnd" ></ion-datetime-button>
+        <ion-datetime-button datetime="datetimeEnd"></ion-datetime-button>
         <ion-modal [keepContentsMounted]="true">
           <ng-template>
             <ion-datetime id="datetimeEnd" min={{currentDate}} [(ngModel)]="datebis"></ion-datetime>
@@ -89,3 +97,38 @@
   <ion-toast [isOpen]="isToastOpen" message="You have to enter date and reason" [duration]="3000"
     (didDismiss)="setOpen(false)"></ion-toast>
 </ion-content>
+
+<!-- Show past absances -->
+<ion-modal #modal2 trigger="open-past">
+  <ng-template>
+    <ion-header>
+      <ion-toolbar>
+        <!-- cancel button, discard the changes -->
+        <ion-buttons slot="start">
+          <ion-button (click)="close()">Close</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content class="ion-padding" [fullscreen]="true">
+      <!-- displays every absence of the user -->
+      <div *ngFor="let absence of absencesdb">
+        <div *ngIf="absence.abis <= currentDate">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>
+                {{absence.avon | date:'dd. MMM yyyy'}} - {{absence.abis | date:'dd. MMM yyyy'}}
+              </ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              {{absence.areason}}
+            </ion-card-content>
+            <ion-fab vertical="top" horizontal="end">
+            </ion-fab>
+          </ion-card>
+        </div>
+      </div>
+    </ion-content>
+
+  </ng-template>
+</ion-modal>
