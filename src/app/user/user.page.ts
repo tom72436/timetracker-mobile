@@ -10,7 +10,7 @@ import { CookieService } from 'ngx-cookie-service';
 })
 export class UserPage implements OnInit{
   user!: any;
-  ipAddress: string = "localhost"
+  ipAddress: string = "localhost";
 
   constructor(private location: Location,private http: HttpClient,private cookieService:CookieService) {}
 

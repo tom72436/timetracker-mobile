@@ -29,7 +29,7 @@ export class AbsencesPage implements OnInit {
   datevon!: Date;
   datebis!: Date;
   response: any = [];
-  ipAddress: string = "localhost"
+  ipAddress: string = "localhost";
 
 
   currentDate: string = new Date().toISOString();

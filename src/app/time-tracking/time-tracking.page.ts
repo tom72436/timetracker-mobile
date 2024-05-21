@@ -20,14 +20,16 @@ export class TimeTrackingPage implements OnInit {
   convertedTimeEnd: any;
 
   isToastOpen = false;
+  params!: any[];
+  constructionArea!: string;
 
-  ipAddress: string = "localhost"
+  ipAddress: string = "localhost";
 
   constructor(public photoService: PhotoService, private http: HttpClient, private cookieService: CookieService) { }
 
   ngOnInit() {
     this.getTime();
-
+    this.getConstuctionArea();
   }
   handleRefresh(event:any) {
     setTimeout(() => {
@@ -199,6 +201,19 @@ export class TimeTrackingPage implements OnInit {
     console.log(image);
   }
 
+  getConstuctionArea(){
+    const cid = parseInt(this.cookieService.get('cid'));
+    this.http.get<any[]>(`http://${this.ipAddress}:3000/api/construction-sites/details?cid=${cid}`).subscribe(
+      (response) => {
+        console.log('Constuction area saved successfully:', response[0].cname);
+        this.constructionArea = response[0].cname;
+      },
+      (error) => {
+        console.error("No construction area found");
+      }
+
+    );
+  }
 
 }
 

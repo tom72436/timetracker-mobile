@@ -11,7 +11,7 @@ import { Router } from '@angular/router';
 export class SelectConstructionAreaPage implements OnInit {
 
   sites: any[] =[];
-  ipAddress: string = "localhost"
+  ipAddress: string = "localhost";
 
   constructor(private http: HttpClient, private cookieService: CookieService, private router: Router) {}
 
