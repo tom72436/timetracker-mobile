@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-        <!-- back icon -->
+    <!-- back icon -->
     <ion-buttons slot="start" routerLink="/time-tracking">
       <ion-icon name="arrow-back-outline" size="large"></ion-icon>
     </ion-buttons>
@@ -15,15 +15,17 @@
   </ion-toolbar>
 </ion-header>
 
-
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">weekly-review</ion-title>
-    </ion-toolbar>
-  </ion-header>
   <ion-list>
-    <ion-label>Monday</ion-label>
+    <ion-item *ngFor="let date of currentWeekDates">
+      <ion-label>
+        <h2>{{ getDayOfWeek(date) }}: {{ date }}</h2>
+        <ng-container *ngFor="let entry of getTimeDataForDate(date)">
+          <p>{{ entry.hoursWorked }} - Construction Site: {{ constructionSiteMap.get(entry.cid) }}</p>
+        </ng-container>
+      </ion-label>
+    </ion-item>
   </ion-list>
 </ion-content>
+
+
