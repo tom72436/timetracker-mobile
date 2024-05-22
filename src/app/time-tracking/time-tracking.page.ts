@@ -172,6 +172,7 @@ export class TimeTrackingPage implements OnInit {
       this.http.get(`http://${this.ipAddress}:3000/api/timetracking/update?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}&tid=${tidToUpdate}`).subscribe(
         (response: any) => {
           console.log(response);
+          window.location.reload();
         },
         (error) => {
           console.error('Error updating time:', error);
