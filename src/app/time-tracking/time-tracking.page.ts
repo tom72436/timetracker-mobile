@@ -127,7 +127,7 @@ export class TimeTrackingPage implements OnInit {
       return;
     }
 
-    this.http.get(`http://${this.ipAddress}:3000/api/timetracking/save?cid=${this.cookieService.get('cid')}'&uid=${this.cookieService.get('uid')}`).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/timetracking/save?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}`).subscribe(
       (response: any) => {
         console.log('Time saved successfully');
         this.getTime();
