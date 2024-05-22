@@ -27,15 +27,14 @@
     </ion-header>
   </div>
 
-  <div>
-    {{constructionArea}}
+  <div style="padding-left: 20px;">
+    <p style="font-size: 20px;">{{constructionArea}}</p>
   </div>
 
   <div class="center">
     <!-- <p>{{ getTimeString() }}</p> -->
-    <ion-button (click)="setTime()">Start</ion-button>
-    <br>
-    <ion-button (click)="updateTime()">Stop</ion-button>
+    <ion-button style="width: 200px;" (click)="setTime()">Start</ion-button>
+    <ion-button style="width: 200px;" (click)="updateTime()">Stop</ion-button>
     <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-list *ngFor="let entry of time">
       <ion-refresher-content><ion-label>{{ entry.displayString }}</ion-label></ion-refresher-content>

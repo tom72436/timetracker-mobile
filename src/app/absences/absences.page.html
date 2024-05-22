@@ -72,26 +72,34 @@
       <ion-content class="ion-padding">
         <h3>Pick your date</h3>
         <!-- selection of the start date -->
-        <h4>Von:</h4>
-        <ion-datetime-button datetime="datetimeStart"></ion-datetime-button>
-        <ion-modal [keepContentsMounted]="true">
-          <ng-template>
-            <ion-datetime id="datetimeStart" min={{currentDate}} [(ngModel)]="datevon"></ion-datetime>
-          </ng-template>
-        </ion-modal>
+        <div class="date-selection">
+          <div>
+            <h4>From:</h4>
+            <ion-datetime-button datetime="datetimeStart"></ion-datetime-button>
+          </div>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="datetimeStart" min={{currentDate}} [(ngModel)]="datevon"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </div>
         <!-- selection of the end date -->
-        <h4>Bis:</h4>
-        <ion-datetime-button datetime="datetimeEnd"></ion-datetime-button>
-        <ion-modal [keepContentsMounted]="true">
-          <ng-template>
-            <ion-datetime id="datetimeEnd" min={{currentDate}} [(ngModel)]="datebis"></ion-datetime>
-          </ng-template>
-        </ion-modal>
+        <div class="date-selection">
+          <div>
+            <h4>To:</h4>
+            <ion-datetime-button datetime="datetimeEnd"></ion-datetime-button>
+          </div>
+          <ion-modal [keepContentsMounted]="true">
+            <ng-template>
+              <ion-datetime id="datetimeEnd" min={{currentDate}} [(ngModel)]="datebis"></ion-datetime>
+            </ng-template>
+          </ion-modal>
+        </div>
         <br>
         <!-- input field for the reason -->
-        <ion-input label="Reason" label-placement="floating" fill="outline" color="primary" [(ngModel)]="reason">
-        </ion-input>
+        <ion-input label="Reason" label-placement="floating" fill="outline" color="primary" [(ngModel)]="reason"></ion-input>
       </ion-content>
+
     </ng-template>
   </ion-modal>
   <ion-toast [isOpen]="isToastOpen" message="You have to enter date and reason" [duration]="3000"
