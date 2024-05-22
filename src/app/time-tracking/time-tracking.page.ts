@@ -95,13 +95,13 @@ export class TimeTrackingPage implements OnInit {
         const timeEnddb = entry?.tdateEnd ? new Date(entry.tdateEnd) : null;
 
         if (timeStartdb instanceof Date) {
-          entry.convertedTimeStart = timeStartdb.toLocaleTimeString();
+          entry.convertedTimeStart = timeStartdb.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
         } else {
           console.error('Invalid start date object:', timeStartdb);
         }
 
         if (timeEnddb instanceof Date) {
-          entry.convertedTimeEnd = timeEnddb.toLocaleTimeString();
+          entry.convertedTimeEnd = timeEnddb.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
           entry.displayString = `From ${entry.convertedTimeStart} to ${entry.convertedTimeEnd}`;
         } else {
           console.error('Invalid end date object:', timeEnddb);

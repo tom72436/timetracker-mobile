@@ -32,14 +32,21 @@
   </div>
 
   <div class="center">
+    <div style="text-align: center; margin-top: 20px;">
+      <ion-button style="width: 200px;" (click)="setTime()">Start</ion-button>
+      <ion-button style="width: 200px;" (click)="updateTime()">Stop</ion-button>
+    </div>
 
-    <ion-button style="width: 200px;" (click)="setTime()">Start</ion-button>
-    <ion-button style="width: 200px;" (click)="updateTime()">Stop</ion-button>
     <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
-      <ion-list *ngFor="let entry of time">
-        <ion-refresher-content><ion-label>{{ entry.displayString }}</ion-label></ion-refresher-content>
-      </ion-list>
-  </ion-refresher>
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list style="margin-top: 20px;">
+      <p *ngIf="time && time.length > 0">Today you have worked</p>
+      <ion-item *ngFor="let entry of time">
+        <ion-label>{{ entry.displayString }}</ion-label>
+      </ion-item>
+    </ion-list>
   </div>
   <!-- grid to display the photos -->
   <ion-grid>
