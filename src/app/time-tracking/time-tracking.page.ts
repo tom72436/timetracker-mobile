@@ -186,7 +186,7 @@ export class TimeTrackingPage implements OnInit {
 
 
   saveImage(image: string) {
-    this.http.get(`http://${this.ipAddress}:3000/api/images/save?cid${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}&image=${image}`).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/images/save?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}&image=${image}`).subscribe(
       (response: any) => {
         console.log('Image saved successfully:', response);
 
