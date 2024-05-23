@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class WeeklyReviewPage implements OnInit {
   uid!: string;
   user: any[] = [];
-  ipAdress: string = '192.168.120.92';
+  ipAdress: string = 'localhost';
   constructionSiteMap: Map<number, string> = new Map();
   timeData: { date: string, hoursWorked: string, cid: number }[] = [];
   currentWeekDates: string[] = [];
