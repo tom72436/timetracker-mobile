@@ -20,7 +20,7 @@ export class WeeklyReviewPage implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
-    this.uid = this.cookieService.get('cid');
+    this.uid = this.cookieService.get('uid');
     if (this.uid) {
       this.calculateCurrentWeekDates();
       this.getDetails(this.uid);
@@ -91,7 +91,7 @@ export class WeeklyReviewPage implements OnInit {
     const millisecondsDiff = Math.abs(end.getTime() - start.getTime());
     const hours = Math.floor(millisecondsDiff / (1000 * 60 * 60));
     const minutes = Math.floor((millisecondsDiff % (1000 * 60 * 60)) / (1000 * 60));
-    return `${hours} hours ${minutes} minutes`;
+    return `${hours} h ${minutes} min`;
   }
 
   getConstructionSite(cid: number): Observable<any[]> {

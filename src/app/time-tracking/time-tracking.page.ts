@@ -2,6 +2,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { PhotoService } from '../services/photo.service';
 import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-time-tracking',
@@ -9,6 +10,8 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./time-tracking.page.scss'],
 })
 export class TimeTrackingPage implements OnInit {
+  cid!: string;
+
   timer: any;
   timeInSeconds: number = 0;
   todayWorked: Array<string> = [];
@@ -25,12 +28,21 @@ export class TimeTrackingPage implements OnInit {
 
   ipAddress: string = "localhost";
 
-  constructor(public photoService: PhotoService, private http: HttpClient, private cookieService: CookieService) { }
+  constructor(public photoService: PhotoService, private http: HttpClient, private cookieService: CookieService,  private route: ActivatedRoute, private router: Router,) { }
 
   ngOnInit() {
+    this.cid = this.cookieService.get('cid');
     this.getTime();
     this.getConstuctionArea();
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.cid = this.cookieService.get('cid');
+        this.getTime();
+        this.getConstuctionArea();
+      }
+    });
   }
+
   handleRefresh(event:any) {
     setTimeout(() => {
       this.getTime();
@@ -127,7 +139,7 @@ export class TimeTrackingPage implements OnInit {
       return;
     }
 
-    this.http.get(`http://${this.ipAddress}:3000/api/timetracking/save?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}`).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/timetracking/save?cid=${this.cid}&uid=${this.cookieService.get('uid')}`).subscribe(
       (response: any) => {
         console.log('Time saved successfully');
         this.getTime();
@@ -144,7 +156,8 @@ export class TimeTrackingPage implements OnInit {
   }
 
   getTime() {
-    this.http.get(`http://${this.ipAddress}:3000/api/timetracking/get?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}`).subscribe(
+    this.time =[];
+    this.http.get(`http://${this.ipAddress}:3000/api/timetracking/get?cid=${this.cid}&uid=${this.cookieService.get('uid')}`).subscribe(
       (response: any) => {
         this.time = response;
         console.log(this.time);
@@ -169,7 +182,7 @@ export class TimeTrackingPage implements OnInit {
 
     if (tidToUpdate !== null) {
       // Perform the HTTP request with the found tid
-      this.http.get(`http://${this.ipAddress}:3000/api/timetracking/update?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}&tid=${tidToUpdate}`).subscribe(
+      this.http.get(`http://${this.ipAddress}:3000/api/timetracking/update?cid=${this.cid}&uid=${this.cookieService.get('uid')}&tid=${tidToUpdate}`).subscribe(
         (response: any) => {
           console.log(response);
           window.location.reload();
@@ -186,7 +199,7 @@ export class TimeTrackingPage implements OnInit {
 
 
   saveImage(image: string) {
-    this.http.get(`http://${this.ipAddress}:3000/api/images/save?cid=${this.cookieService.get('cid')}&uid=${this.cookieService.get('uid')}&image=${image}`).subscribe(
+    this.http.get(`http://${this.ipAddress}:3000/api/images/save?cid=${this.cid}&uid=${this.cookieService.get('uid')}&image=${image}`).subscribe(
       (response: any) => {
         console.log('Image saved successfully:', response);
 
