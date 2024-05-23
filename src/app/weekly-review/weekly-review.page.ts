@@ -20,7 +20,7 @@ export class WeeklyReviewPage implements OnInit {
   constructor(private route: ActivatedRoute, private http: HttpClient, private router: Router, private cookieService: CookieService) { }
 
   ngOnInit() {
-    this.uid = this.cookieService.get('cid');
+    this.uid = this.cookieService.get('uid');
     if (this.uid) {
       this.calculateCurrentWeekDates();
       this.getDetails(this.uid);
